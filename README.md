@@ -1,14 +1,6 @@
 # isDuo
 
-Detect a Duo from the safe-area insets and the screen frame.
-
-| Layout | Check |
-| --- | --- |
-| Duo closed | `trailing == 84` and `screenFrame.width < screenFrame.height` |
-| Duo open landscape | `trailing == 84` |
-| Duo open portrait | `top == 82` |
-
-Closed is checked first, because a closed Duo also has a trailing inset of 84. Any other insets are `.notDuo`. If the open landscape and open portrait values both match, the result is open landscape.
+Detect an iPhone Duo and its screen state.
 
 ## Add the package
 
