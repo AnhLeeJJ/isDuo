@@ -38,66 +38,28 @@ import Testing
     #expect(!isDuoOpenPortrait(topInset: 83))
 }
 
-@Test func closedWhenInsetsMatchAndScreenIsPortrait() {
+@Test func closedWhenTrailingIs84AndScreenIsPortrait() {
     let screenFrame = CGRect(x: 0, y: 0, width: 390, height: 844)
-    let state = duoPhoneState(
-        topInset: 0,
-        leadingInset: 0,
-        bottomInset: 34,
-        trailingInset: 84,
-        screenFrame: screenFrame
-    )
+    let state = duoPhoneState(topInset: 59, trailingInset: 84, screenFrame: screenFrame)
 
     #expect(state == .closed)
     #expect(state.isDuo)
     #expect(state.isClosed)
     #expect(!state.isOpenLandscape)
-    #expect(
-        isDuoClosed(
-            topInset: 0,
-            leadingInset: 0,
-            bottomInset: 34,
-            trailingInset: 84,
-            screenFrame: screenFrame
-        )
-    )
+    #expect(isDuoClosed(trailingInset: 84, screenFrame: screenFrame))
 }
 
-@Test func closedInsetsInLandscapeScreenAreOpenLandscape() {
+@Test func trailing84OnLandscapeScreenIsOpenLandscape() {
     let screenFrame = CGRect(x: 0, y: 0, width: 844, height: 390)
 
-    #expect(
-        duoPhoneState(
-            topInset: 0,
-            leadingInset: 0,
-            bottomInset: 34,
-            trailingInset: 84,
-            screenFrame: screenFrame
-        ) == .openLandscape
-    )
-    #expect(
-        !isDuoClosed(
-            topInset: 0,
-            leadingInset: 0,
-            bottomInset: 34,
-            trailingInset: 84,
-            screenFrame: screenFrame
-        )
-    )
+    #expect(duoPhoneState(topInset: 0, trailingInset: 84, screenFrame: screenFrame) == .openLandscape)
+    #expect(!isDuoClosed(trailingInset: 84, screenFrame: screenFrame))
 }
 
 @Test func squareScreenIsNotClosed() {
     let screenFrame = CGRect(x: 0, y: 0, width: 400, height: 400)
 
-    #expect(
-        duoPhoneState(
-            topInset: 0,
-            leadingInset: 0,
-            bottomInset: 34,
-            trailingInset: 84,
-            screenFrame: screenFrame
-        ) == .openLandscape
-    )
+    #expect(duoPhoneState(topInset: 0, trailingInset: 84, screenFrame: screenFrame) == .openLandscape)
 }
 
 #if canImport(SwiftUI)

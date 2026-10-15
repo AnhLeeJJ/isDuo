@@ -4,7 +4,7 @@ Detect a Duo from the safe-area insets and the screen frame.
 
 | Layout | Check |
 | --- | --- |
-| Duo closed | `top == 0`, `leading == 0`, `bottom == 34`, `trailing == 84`, and `screenFrame.width < screenFrame.height` |
+| Duo closed | `trailing == 84` and `screenFrame.width < screenFrame.height` |
 | Duo open landscape | `trailing == 84` |
 | Duo open portrait | `top == 82` |
 
@@ -73,23 +73,15 @@ import isDuo
 
 let state = duoPhoneState(
     topInset: insets.top,
-    leadingInset: insets.leading,
-    bottomInset: insets.bottom,
     trailingInset: insets.trailing,
     screenFrame: screenFrame
 )
 
 if state.isClosed {
-    // top 0, leading 0, bottom 34, trailing 84, and screenFrame.width < screenFrame.height
+    // trailing == 84 and screenFrame.width < screenFrame.height
 }
 
-if isDuoClosed(
-    topInset: 0,
-    leadingInset: 0,
-    bottomInset: 34,
-    trailingInset: 84,
-    screenFrame: screenFrame
-) {
+if isDuoClosed(trailingInset: insets.trailing, screenFrame: screenFrame) {
     // same closed check
 }
 

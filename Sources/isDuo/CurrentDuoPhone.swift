@@ -3,29 +3,22 @@ import UIKit
 
 extension DuoPhoneState {
     /// Safe-area insets and screen bounds of the key window.
-    /// Leading and trailing follow the window layout direction.
+    /// Trailing follows the window layout direction.
     @MainActor
     public static func current(in window: UIWindow? = nil) -> DuoPhoneState {
         guard let window = window ?? currentKeyWindow() else {
             return .notDuo
         }
-        let direction = window.traitCollection.layoutDirection
         let insets = window.safeAreaInsets
         return DuoPhoneState(
             topInset: insets.top,
-            leadingInset: insets.leading(for: direction),
-            bottomInset: insets.bottom,
-            trailingInset: insets.trailing(for: direction),
+            trailingInset: insets.trailing(for: window.traitCollection.layoutDirection),
             screenFrame: window.screen.bounds
         )
     }
 }
 
 extension UIEdgeInsets {
-    func leading(for layoutDirection: UITraitEnvironmentLayoutDirection) -> CGFloat {
-        layoutDirection == .rightToLeft ? right : left
-    }
-
     func trailing(for layoutDirection: UITraitEnvironmentLayoutDirection) -> CGFloat {
         layoutDirection == .rightToLeft ? left : right
     }
